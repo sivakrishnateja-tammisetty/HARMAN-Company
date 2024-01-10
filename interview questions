@@ -25,3 +25,52 @@ C_style string :Hello siva
 Copied string using cnstr :Hello siva
 Sub string :si
 Repeated character :****
+
+
+
+
+
+
+
+
+
+2.Lazy initialization in c++ and how to use it?
+
+
+*Lazy initialization is a technique where you delay the creation or initialization of an object until the point at which it is actually needed. 
+*This can be useful in situations where the initialization of an object is expensive or resource-intensive, and you want to defer it until it's necessary.
+
+Eg:
+#include <iostream>
+#include <string>
+using namespace std;
+class LazyInitialization
+{
+    bool isinitialized;
+    string expensiveData;
+    void isInitialized()
+    {
+        isinitialized=true;
+        expensiveData="This is an expensive operation";
+    }
+    public:
+    LazyInitialization():isinitialized(false){}
+    const string& getExpensiveData()
+    {
+        if(!isinitialized)
+        {
+            isInitialized();
+        }
+        return expensiveData;
+    }
+};
+int main()
+{
+    LazyInitialization obj;
+    cout<<"Getting expensive data :"<<obj.getExpensiveData()<<endl;
+    cout<<"Again getting expensive data :"<<obj.getExpensiveData()<<endl;
+}
+
+o/p:
+Getting expensive data :This is an expensive operation
+Again getting expensive data :This is an expensive operation
