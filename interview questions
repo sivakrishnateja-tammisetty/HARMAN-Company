@@ -152,3 +152,101 @@ int main()
 }
 o/p:
 Addition:7
+
+
+(or)
+
+
+#include <iostream>
+using namespace std;
+template<class T>
+class Arith
+{
+    T a,b;
+    public:
+    Arith(T x,T y);
+    T add();
+    void display();
+};
+template<class T>
+Arith<T>::Arith(T x,T y):a(x),b(y){}
+template<class T>
+T Arith<T>::add()
+{
+    return a+b;
+}
+template<class T>
+void Arith<T>::display()
+{
+    cout<<"Addition :"<<add();
+}
+
+int main()
+{
+    Arith<int>obj(3,4);
+    obj.display();
+   
+   return 0;
+}
+o/p:
+Addition:7
+
+
+
+
+4. about new delete malloc free uses and diffrencees and internally how it works?
+
+*new and delete are operators in C++ used for dynamic memory allocation, while malloc() and free() are functions in C used for the same purpose.
+
+
+new & delete c++:
+----------------
+
+Usage:
+
+new: Used to allocate memory for a single object and return a pointer to that object.
+delete: Used to deallocate memory that was previously allocated using new.
+
+Eg:
+int* ptr = new int;  // Allocates memory for an integer
+// Use ptr...
+delete ptr;          // Deallocates the memory
+
+Differences:
+
+new and delete are C++ operators.
+They also support constructors and destructors for user-defined types.
+They implicitly call constructors for objects and destructors when delete is used.
+
+Internal Working:
+
+new internally uses malloc to allocate memory.
+It also constructs the object by calling its constructor.
+delete calls the object's destructor and then uses free to deallocate the memory.
+
+
+
+
+malloc() and free() (C):
+-----------------------
+
+Usage:
+
+malloc(): Used to allocate a specified number of bytes of memory and returns a void pointer (void*).
+free(): Used to deallocate memory that was previously allocated using malloc().
+
+int* ptr = (int*)malloc(sizeof(int));  // Allocates memory for an integer
+// Use ptr...
+free(ptr);                            // Deallocates the memory
+
+Differences:
+
+malloc() and free() are C functions.
+They do not call constructors or destructors; they are more low-level.
+
+
+Internal Working:
+
+malloc allocates a block of memory of the specified size.
+free deallocates the block of memory, making it available for reuse.
+malloc and free do not initialize or clean up objects; they only deal with raw memory.
