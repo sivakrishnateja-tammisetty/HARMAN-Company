@@ -1,0 +1,27 @@
+1. string example using constructor in c++?
+
+#include <iostream>
+#include<string>
+using namespace std;
+int main() {
+   string emptyString;
+   const char* c_styleString="Hello siva";
+   string copyconstr_string(c_styleString);
+   string original="Hello siva krishna";
+   string substring(original,6,2);
+   string repeatedchar(4,'*');
+   cout<<"Empty string:"<<emptyString<<endl;
+   cout<<"C_style string :"<<c_styleString<<endl;
+   cout<<"Copied string using cnstr :"<<copyconstr_string<<endl;
+   cout<<"Sub string :"<<substring<<endl;
+   cout<<"Repeated character :"<<repeatedchar<<endl;
+
+    return 0;
+}
+
+o/P:
+Empty string:
+C_style string :Hello siva
+Copied string using cnstr :Hello siva
+Sub string :si
+Repeated character :****
