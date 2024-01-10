@@ -27,11 +27,7 @@ Sub string :si
 Repeated character :****
 
 
-
-
-
-
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 2.Lazy initialization in c++ and how to use it?
@@ -76,9 +72,10 @@ Getting expensive data :This is an expensive operation
 Again getting expensive data :This is an expensive operation
 
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3. Template programming in c++?
+
 *A C++ template is a powerful feature added to C++. 
 *It allows you to define the generic classes and generic functions and thus provides support for generic programming.
 *Generic programming is a technique where generic types are used as parameters in algorithms so that they can work for a variety of data types.
@@ -192,7 +189,7 @@ o/p:
 Addition:7
 
 
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 4. about new delete malloc free uses and diffrencees and internally how it works?
 
@@ -250,3 +247,138 @@ Internal Working:
 malloc allocates a block of memory of the specified size.
 free deallocates the block of memory, making it available for reuse.
 malloc and free do not initialize or clean up objects; they only deal with raw memory.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. about mutable keyword?
+*In C++, the mutable keyword is used in the context of member variables within a const member function of a class.
+*When a member variable is declared as mutable, it means that the variable can be modified even within a const member function.
+*This allows for changing the state of an object while still ensuring that the function itself doesn't modify other non-mutable member variables.
+
+
+Eg:
+#include <iostream>
+using namespace std;
+class VARIABLES
+{
+    int reg_var;
+    mutable int   mutable_var;
+    public:
+    VARIABLES(int reg,int mu):reg_var(reg),mutable_var(mu){}
+    void nonconstMemberfunction()
+    {
+       reg_var=10;
+       mutable_var=20;
+    }
+    void constMemberfunction()const
+    {
+        //reg_var=3;
+        mutable_var=4;
+    }
+    void display()
+    {
+        cout<<"Regular variable :"<<reg_var<<endl;
+        cout<<"Mutable variable :"<<mutable_var<<endl;
+    }
+};
+int main()
+{
+    VARIABLES obj(1,2);
+    obj.display();
+    obj.nonconstMemberfunction();
+    obj.display();
+    obj.constMemberfunction();
+    obj.display();
+}
+
+o/p:
+Regular variable :1
+Mutable variable :2
+Regular variable :10
+Mutable variable :20
+Regular variable :10
+Mutable variable :4
+
+
+NOTE: In nonconstmember function we can modify both regular/mutuable variable, but inside const member function we can modify only mutuable variable.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6. about casting and types of casting and when which casting should be used?
+
+*Casting in C++ refers to the conversion of one data type to another. There are several types of casting in C++, each serving different purposes.
+ Here are the main types of casting:
+
+static_cast:
+-----------
+*The static_cast is a type of casting operator in C++ that is used for well-defined conversions between types.
+*It is a compile-time cast and is generally safer than some other types of casting, like reinterpret_cast.
+*The static_cast performs type checking at compile-time, ensuring that the conversion is valid based on the types involved.
+*static_cast can be used for converting between integral and floating-point types.
+
+
+Eg:
+#include <iostream>
+using namespace std;
+
+int main() {
+    float val = 4.4;
+    int intValue = static_cast<int>(val);
+    cout << intValue << endl;  // Outputs: 4
+
+    int val2 = 3;
+    float floatValue = static_cast<float>(val2);
+    cout << floatValue << endl;  // Outputs: 3.0
+
+    return 0;
+}
+
+
+Dynamic Cast (dynamic_cast):
+-------------------------------
+
+Used for conversions between polymorphic types (types with at least one virtual function).
+It performs a runtime check to ensure the conversion is valid.
+Example: DerivedClass* derivedPtr = dynamic_cast<DerivedClass*>(basePtr);
+
+
+
+
+const cast(const_cast):
+----------------------
+*const_cast is a casting operator in C++ that is used to add or remove the const qualifier from a variable.
+*It provides a way to cast away the constness of a variable, allowing modification of a value that was originally declared as const. 
+
+#include <iostream>
+
+int main() {
+    const int constValue = 42;
+
+    // Using const_cast to remove const qualifier
+    int* nonConstPtr = const_cast<int*>(&constValue);
+
+    // Modifying the value through the non-const pointer
+    *nonConstPtr = 99;
+
+    // Display the modified value
+    std::cout << "Modified Value: " << *nonConstPtr << std::endl;
+
+    return 0;
+}
+o/p:
+Modified Value: 99
+
+
+
+Reinterpret Cast (reinterpret_cast):
+------------------------------------
+
+Used for low-level casting between pointer types and converting between unrelated types.
+It is less type-safe and should be used with caution.
+Example: int intValue = reinterpret_cast<int>(pointerValue);
+
+
+int intValue = 42;
+
+// Using reinterpret_cast to convert the address of an int variable to a char pointer
+char* charPtr = reinterpret_cast<char*>(&intValue);
